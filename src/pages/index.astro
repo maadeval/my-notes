@@ -3,5 +3,60 @@ import Layout from '../layouts/Layout.astro'
 ---
 
 <Layout title='Ejemplos de CSS y AstroDB'>
-  <main></main>
+  <main>
+    <div class='scroll-loader'></div>
+    <header class='header'>
+      Ejemplos de CSS y AstroDB<sup>by Madeval</sup>
+    </header>
+  </main>
 </Layout>
+
+<style>
+  main {
+    min-height: 200dvh;
+  }
+  .header {
+    display: flex;
+    gap: 0.5em;
+    width: 100%;
+    padding: 2em 2em;
+    justify-content: center;
+    font-size: var(--text-lg);
+    animation: adjust-header linear both;
+    animation-timeline: scroll();
+    animation-range: 0px 200px;
+    position: sticky;
+    left: 0;
+    top: 0;
+    background-color: light-dark(var(--dark), var(--light));
+  }
+
+  .scroll-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 0.25rem;
+    width: 100%;
+    background-color: light-dark(
+      var(--dark-transparent),
+      var(--white-transparent)
+    );
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    animation: scroll-loader-animation linear both;
+    animation-timeline: scroll();
+  }
+  @keyframes adjust-header {
+    to {
+      font-size: var(--text-base);
+      padding: 1em 2em;
+      opacity: 0.4;
+    }
+  }
+
+  @keyframes scroll-loader-animation {
+    to {
+      transform: scaleX(1);
+    }
+  }
+</style>
