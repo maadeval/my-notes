@@ -1,62 +1,90 @@
 ---
-import Layout from '../layouts/Layout.astro'
+import DynamicProperties from '@/components/DynamicProperties.astro'
+import Layout from '@/layouts/Layout.astro'
 ---
 
 <Layout title='Ejemplos de CSS y AstroDB'>
   <main>
     <div class='scroll-loader'></div>
     <header class='header'>
-      Ejemplos de CSS y AstroDB<sup>by Madeval</sup>
+      <h1 class='header-title'>
+        Ejemplos de CSS y AstroDB<sup>by Madeval</sup>
+      </h1>
     </header>
-  </main>
-</Layout>
+    <section class='content'>
+      <DynamicProperties />
+    </section>
 
-<style>
-  main {
-    min-height: 200dvh;
-  }
-  .header {
-    display: flex;
-    gap: 0.5em;
-    width: 100%;
-    padding: 2em 2em;
-    justify-content: center;
-    font-size: var(--text-lg);
-    animation: adjust-header linear both;
-    animation-timeline: scroll();
-    animation-range: 0px 200px;
-    position: sticky;
-    left: 0;
-    top: 0;
-    background-color: light-dark(var(--dark), var(--light));
-  }
+    <style>
+      main {
+        min-height: 200dvh;
+      }
 
-  .scroll-loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 0.25rem;
-    width: 100%;
-    background-color: light-dark(
-      var(--dark-transparent),
-      var(--white-transparent)
-    );
-    transform: scaleX(0);
-    transform-origin: 0 50%;
-    animation: scroll-loader-animation linear both;
-    animation-timeline: scroll();
-  }
-  @keyframes adjust-header {
-    to {
-      font-size: var(--text-base);
-      padding: 1em 2em;
-      opacity: 0.4;
-    }
-  }
+      .header {
+        position: sticky;
+        left: 0;
+        top: 0;
+        background-color: light-dark(var(--white), var(--dark));
+        width: 100%;
+        padding: 2em 2em;
+        animation: adjust-header-height linear both;
+        animation-timeline: scroll();
+        animation-range: 0px 100px;
+      }
 
-  @keyframes scroll-loader-animation {
-    to {
-      transform: scaleX(1);
-    }
-  }
-</style>
+      .header-title {
+        display: flex;
+        justify-content: center;
+        gap: 0.5em;
+        font-size: var(--text-lg);
+        animation: adjust-header linear both;
+        animation-timeline: scroll();
+        animation-range: 0px 100px;
+      }
+
+      .content {
+        display: flex;
+        gap: 1em;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2em 2em;
+        margin-top: 6em;
+      }
+
+      .scroll-loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 0.25rem;
+        width: 100%;
+        background-color: light-dark(
+          var(--dark-transparent),
+          var(--white-transparent)
+        );
+        transform: scaleX(0);
+        transform-origin: 0 50%;
+        animation: scroll-loader-animation linear both;
+        animation-timeline: scroll();
+      }
+
+      @keyframes adjust-header {
+        to {
+          font-size: var(--text-base);
+          opacity: 0.4;
+        }
+      }
+      @keyframes adjust-header-height {
+        to {
+          padding: 1em 1em;
+        }
+      }
+
+      @keyframes scroll-loader-animation {
+        to {
+          transform: scaleX(1);
+        }
+      }
+    </style>
+  </main></Layout
+>

@@ -1,0 +1,87 @@
+---
+
+---
+
+<article class='article'>
+  <span data-tag='badge' id='badge' class='badge'
+    >Obtener propiedades CSS con JavaScript</span
+  >
+  <p>Tamaño de la fuente: <span data-property='font-size'></span></p>
+  <p>Radio de borde: <span data-property='border-radius'></span></p>
+  <input type='range' min='0' max='100' value='8' step='8' />
+</article>
+
+<script>
+  const badgeElement = document.querySelector('[data-tag="badge"]')
+  const fontSizeElement = document.querySelector('[data-property="font-size"]')
+  const borderRadiusElement = document.querySelector(
+    '[data-property="border-radius"]'
+  )
+  const rangeElement = document.querySelector(
+    'input[type="range"]'
+  ) as HTMLInputElement
+
+  let stylesOfBadge = null
+  let fontSize = null
+  let borderRadius = null
+
+  if (badgeElement) {
+    stylesOfBadge = window.getComputedStyle(badgeElement)
+    fontSize = stylesOfBadge.getPropertyValue('font-size')
+    borderRadius = stylesOfBadge.getPropertyValue('border-radius')
+
+    if (fontSizeElement) {
+      fontSizeElement.textContent = fontSize
+    }
+    if (borderRadiusElement) {
+      borderRadiusElement.textContent = borderRadius
+    }
+  }
+
+  if (rangeElement) {
+    rangeElement.addEventListener('input', ({ target }) => {
+      const value = target.value
+      badgeElement.style.borderRadius = `${value}px`
+      borderRadiusElement.textContent = `${value}px`
+    })
+  }
+
+  console.log(fontSize)
+</script>
+
+<style>
+  .article {
+    border: 1px solid light-dark(var(--border-light), var(--border-dark));
+    padding: 2rem;
+  }
+  .badge {
+    color: light-dark(var(--text-light), var(--text-dark));
+    font-size: 1rem;
+    padding: 0.5em 2em;
+    border-radius: 0.5rem;
+    border: 1px solid light-dark(var(--border-light), var(--border-dark));
+    transition: background 0.125s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    max-width: 400px;
+    text-wrap: pretty;
+
+    &:hover {
+      background-color: light-dark(
+        var(--dark-transparent),
+        var(--white-transparent)
+      );
+    }
+
+    &::after {
+      content: 'Nuevo';
+      display: block;
+      font-size: 0.85em;
+      padding: 0.25em 0.5em;
+      border: 1px solid light-dark(var(--border-light), var(--border-dark));
+      border-radius: 0.8rem;
+    }
+  }
+</style>
