@@ -12,41 +12,79 @@
 </article>
 
 <script>
-  const badgeElement = document.querySelector('[data-tag="badge"]')
+  function getPropertiesOfElement(element: Element, properties: string[]) {
+    const tylesOfElement = window.getComputedStyle(element)
+    const valuesOfProperties = properties.map((property) => ({
+      [property]: tylesOfElement.getPropertyValue(property),
+    }))
+
+    return valuesOfProperties
+  }
+
+  function printValuesOfProperties(
+    properties: {
+      element: Element
+      property: string
+    }[]
+  ) {
+    console.log({
+      properties,
+    })
+    properties.forEach(({ element, property }) => {
+      element.textContent = property
+    })
+  }
+
+  const badgeElement = document.querySelector(
+    '[data-tag="badge"]'
+  ) as HTMLInputElement
   const fontSizeElement = document.querySelector('[data-property="font-size"]')
   const borderRadiusElement = document.querySelector(
     '[data-property="border-radius"]'
   )
+  console.log(badgeElement)
+  //if (badgeElement == null) throw new Error('No se encontró el elemento badge')
+
+  const listOfPropertiesToGet = ['font-size', 'border-radius']
+  const propertiesOfBadge = getPropertiesOfElement(
+    badgeElement,
+    listOfPropertiesToGet
+  )
+
+  const valueOfFontSize = propertiesOfBadge.find(
+    (property) => property['font-size']
+  )?.['font-size']
+
+  const valueOfBorderRadius = propertiesOfBadge.find(
+    (property) => property['border-radius']
+  )?.['border-radius']
+
+  if (!fontSizeElement || !borderRadiusElement) {
+    throw new Error(
+      'No se encontraron los elementos para mostrar las propiedades'
+    )
+  }
+
+  printValuesOfProperties([
+    { element: fontSizeElement, property: valueOfFontSize ?? '' },
+    { element: borderRadiusElement, property: valueOfBorderRadius ?? '' },
+  ])
+
   const rangeElement = document.querySelector(
     'input[type="range"]'
   ) as HTMLInputElement
 
-  let stylesOfBadge = null
-  let fontSize = null
-  let borderRadius = null
-
-  if (badgeElement) {
-    stylesOfBadge = window.getComputedStyle(badgeElement)
-    fontSize = stylesOfBadge.getPropertyValue('font-size')
-    borderRadius = stylesOfBadge.getPropertyValue('border-radius')
-
-    if (fontSizeElement) {
-      fontSizeElement.textContent = fontSize
-    }
-    if (borderRadiusElement) {
-      borderRadiusElement.textContent = borderRadius
-    }
-  }
-
-  if (rangeElement) {
-    rangeElement.addEventListener('input', ({ target }) => {
+  rangeElement.addEventListener('input', ({ target }: Event) => {
+    if (target instanceof HTMLInputElement) {
       const value = target.value
-      badgeElement.style.borderRadius = `${value}px`
-      borderRadiusElement.textContent = `${value}px`
-    })
-  }
 
-  console.log(fontSize)
+      printValuesOfProperties([
+        { element: borderRadiusElement, property: `${value}px` },
+      ])
+
+      badgeElement.style.borderRadius = `${value}px`
+    }
+  })
 </script>
 
 <style>
