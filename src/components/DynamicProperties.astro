@@ -1,15 +1,43 @@
 ---
-
+import CardArticle from './CardArticle.astro'
 ---
 
-<article class='article'>
-  <span data-tag='badge' id='badge' class='badge'
-    >Obtener propiedades CSS con JavaScript</span
-  >
-  <p>Tamaño de la fuente: <span data-property='font-size'></span></p>
-  <p>Radio de borde: <span data-property='border-radius'></span></p>
-  <input type='range' min='0' max='100' value='8' step='8' />
-</article>
+<CardArticle>
+  <div class='header' slot='header'>
+    <span data-tag='badge' id='badge' class='badge'
+      >Obtener propiedades CSS con JavaScript</span
+    >
+  </div>
+  <div slot='body'>
+    <div class='properties-content-item'>
+      <p class='text'>
+        Radio de borde: <span data-property='border-radius'></span>
+      </p>
+      <input type='range' min='0' max='100' value='8' step='4' />
+    </div>
+    <div>
+      <p class='text-description'>
+        Utilizamos <code>window.getComputedStyle([element])</code> para obtener todas
+        las propiedades CSS de un elemento.
+      </p>
+      <p class='text-description'>
+        Utilizamos <code>.getPropertyValue('color')</code> para obtener el valor
+        de esa propiedad.
+      </p>
+      <p class='text-description'>
+        El tipo de medida <code>rem</code> es root-em, significa que va a adaptarse
+        a la medida del HTML. Por lo general 1rem es igual a 16px. Va a variar dependiendo
+        del tamaño de fuente que tenga el HTML.
+      </p>
+      <p class='text-description'>
+        El tipo de medida <code>em</code> significa que va a adaptarse a la medida
+        del elemento padre. Esto es útil para hacer diseños escalables. Para padding,
+        margin, width, height, etc, que se adapte al tamaño del texto, que este si
+        lo ponemos en rem.
+      </p>
+    </div>
+  </div>
+</CardArticle>
 
 <script>
   function getPropertiesOfElement(element: Element, properties: string[]) {
@@ -38,35 +66,21 @@
   const badgeElement = document.querySelector(
     '[data-tag="badge"]'
   ) as HTMLInputElement
-  const fontSizeElement = document.querySelector('[data-property="font-size"]')
   const borderRadiusElement = document.querySelector(
     '[data-property="border-radius"]'
-  )
-  console.log(badgeElement)
-  //if (badgeElement == null) throw new Error('No se encontró el elemento badge')
+  ) as HTMLInputElement
 
-  const listOfPropertiesToGet = ['font-size', 'border-radius']
+  const listOfPropertiesToGet = ['border-radius']
   const propertiesOfBadge = getPropertiesOfElement(
     badgeElement,
     listOfPropertiesToGet
   )
 
-  const valueOfFontSize = propertiesOfBadge.find(
-    (property) => property['font-size']
-  )?.['font-size']
-
   const valueOfBorderRadius = propertiesOfBadge.find(
     (property) => property['border-radius']
   )?.['border-radius']
 
-  if (!fontSizeElement || !borderRadiusElement) {
-    throw new Error(
-      'No se encontraron los elementos para mostrar las propiedades'
-    )
-  }
-
   printValuesOfProperties([
-    { element: fontSizeElement, property: valueOfFontSize ?? '' },
     { element: borderRadiusElement, property: valueOfBorderRadius ?? '' },
   ])
 
@@ -88,10 +102,16 @@
 </script>
 
 <style>
-  .article {
-    border: 1px solid light-dark(var(--border-light), var(--border-dark));
-    padding: 2rem;
+  .text-description {
+    font-size: var(--text-xs);
+    max-width: 48ch;
+    text-wrap: pretty;
+
+    & code {
+      color: hsla(0, 69%, 69%, 0.881);
+    }
   }
+
   .badge {
     color: light-dark(var(--text-light), var(--text-dark));
     font-size: 1rem;
@@ -120,6 +140,26 @@
       padding: 0.25em 0.5em;
       border: 1px solid light-dark(var(--border-light), var(--border-dark));
       border-radius: 0.8rem;
+    }
+  }
+
+  .text {
+    font-size: var(--text-sm);
+    margin: 0;
+  }
+
+  .properties-content-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5em 1em;
+
+    &:nth-child(2n - 1) {
+      background-color: light-dark(
+        var(--dark-transparent),
+        var(--white-transparent)
+      );
     }
   }
 </style>
