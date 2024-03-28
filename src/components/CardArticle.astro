@@ -15,6 +15,13 @@
     position: relative;
     width: 100%;
     max-width: 560px;
+    animation: reveal 0.5s linear both;
+    animation-timeline: view();
+    animation-range: entry 20% cover 50%;
+    transform: scale(1);
+    opacity: 1;
+    outline: 1px solid light-dark(var(--border-light), var(--border-dark));
+    outline-offset: 4px;
 
     &::before {
       content: '';
@@ -26,13 +33,11 @@
       width: calc(100% + 4px);
       height: calc(100% + 4px);
       border-radius: 0.5rem;
-      outline: 1px solid light-dark(var(--border-light), var(--border-dark));
-      outline-offset: 4px;
       transform: translate(-50%, -50%);
       background: linear-gradient(
-        to bottom,
-        light-dark(var(--dark), var(--white)),
-        light-dark(var(--white), var(--dark))
+        to right bottom,
+        light-dark(var(--border-light), var(--border-dark)) 0%,
+        transparent 50%
       );
     }
   }
@@ -52,5 +57,16 @@
     flex-direction: column;
     gap: 0.25rem;
     padding: 2rem;
+  }
+
+  @keyframes reveal {
+    from {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
   }
 </style>
