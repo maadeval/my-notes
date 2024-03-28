@@ -1,5 +1,6 @@
 ---
 import DynamicProperties from '@/components/DynamicProperties.astro'
+import DynamicTitleCSS from '@/components/DynamicTitleCSS.astro'
 import Layout from '@/layouts/Layout.astro'
 ---
 
@@ -13,6 +14,7 @@ import Layout from '@/layouts/Layout.astro'
     </header>
     <section class='content'>
       <DynamicProperties />
+      <DynamicTitleCSS />
     </section>
   </main>
 </Layout>
@@ -48,7 +50,7 @@ import Layout from '@/layouts/Layout.astro'
 
   .content {
     display: flex;
-    gap: 1em;
+    gap: 8em;
     flex-direction: column;
     align-items: center;
     justify-content: center;

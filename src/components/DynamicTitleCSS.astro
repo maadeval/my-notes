@@ -1,0 +1,90 @@
+---
+import CardArticle from './CardArticle.astro'
+
+const DEFAULT_TEXT = 'CSS y ejemplos con AstroDB'
+---
+
+<CardArticle>
+  <div slot='header'>
+    <p class='title-box'>
+      <span class='title'>{DEFAULT_TEXT}</span>
+      <span class='title-transparent'>{DEFAULT_TEXT}</span>
+    </p>
+  </div>
+  <div slot='body'>
+    <p>Escriba el texto</p>
+    <textarea id='title-control'>{DEFAULT_TEXT}</textarea>
+  </div>
+</CardArticle>
+
+<style>
+  .title-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem;
+    padding: 2rem;
+    max-width: 40ch;
+  }
+
+  .title {
+    font-size: var(--text-xl);
+    color: transparent;
+    background: url('https://mereton.com.au/wp-content/uploads/2016/12/Daisy-Leaf-Marine.jpg');
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: auto 200%;
+    animation: move-background 10s infinite linear;
+    position: absolute;
+    text-align: center;
+    z-index: 10;
+    text-wrap: pretty;
+  }
+
+  .title-transparent {
+    font-size: var(--text-xl);
+    background: url('https://mereton.com.au/wp-content/uploads/2016/12/Daisy-Leaf-Marine.jpg');
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: auto 200%;
+    animation: move-background 10s infinite linear;
+    position: absolute;
+    text-align: center;
+    filter: blur(8px);
+    opacity: 0.5;
+    user-select: none;
+    text-wrap: pretty;
+  }
+
+  @keyframes move-background {
+    from {
+      background-position: center 0;
+    }
+    to {
+      background-position: center 200%;
+    }
+  }
+
+  textarea {
+    resize: none;
+    field-sizing: content;
+    padding: 1em 1.5em;
+    padding-right: 4em;
+  }
+</style>
+
+<script>
+  const $input = document.getElementById('title-control')
+  const $title = document.querySelector('.title') as HTMLSpanElement
+  const $titleTransparent = document.querySelector(
+    '.title-transparent'
+  ) as HTMLSpanElement
+
+  $input?.addEventListener('input', ({ target }) => {
+    if (!(target instanceof HTMLTextAreaElement)) return
+
+    const { value } = target
+    $title.textContent = value
+    $titleTransparent.textContent = value
+  })
+</script>
