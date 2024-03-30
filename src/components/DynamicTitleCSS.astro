@@ -12,8 +12,34 @@ const DEFAULT_TEXT = 'CSS y ejemplos con AstroDB'
     </p>
   </div>
   <div slot='body'>
-    <p>Escriba el texto</p>
+    <p class='text-description'>Escriba el texto</p>
     <textarea id='title-control'>{DEFAULT_TEXT}</textarea>
+    <hr class='divider' />
+    <p class='text-description'>
+      Para lograr este efecto debemos hacer transparente el texto y luego
+      rellenarlo con una imagen.
+    </p>
+    <p class='text-description'>
+      Para hacer transparente el texto debemos agregar tanto la propiedad de CSS <code
+        >-webkit-text-fill-color: transparent;</code
+      >, la cual nos permitira dejar el texto transparente, y la propedad <code
+        >-webkit-background-clip: text;</code
+      > que indica a donde va destinado el background que agreguemos, siendo este
+      la imagen.
+    </p>
+    <p class='text-description'>
+      Para agregar la imagen commo background solo debemos indicarlo asi <code
+        >background: url([image-url]);</code
+      > y listo! El movimiento es una animación del background position.
+    </p>
+    <p class='text-description'>
+      La posicion del background la seteamos de tal manera que haya un zoom en
+      ella y el movimiento se pueda hacer correctamente: <code
+        >background-size: auto 200%;</code
+      > y la animacion es tal que <code>background-position: center 0;</code> a <code
+        >background-position: center 200%;</code
+      >
+    </p>
   </div>
 </CardArticle>
 
@@ -27,6 +53,15 @@ const DEFAULT_TEXT = 'CSS y ejemplos con AstroDB'
     max-width: 40ch;
   }
 
+  .text-description {
+    font-size: var(--text-xs);
+    max-width: 48ch;
+    text-wrap: pretty;
+
+    & code {
+      color: hsla(0, 69%, 69%, 0.881);
+    }
+  }
   .title {
     font-size: var(--text-xl);
     color: transparent;
@@ -54,6 +89,10 @@ const DEFAULT_TEXT = 'CSS y ejemplos con AstroDB'
     opacity: 0.5;
     user-select: none;
     text-wrap: pretty;
+  }
+  .divider {
+    border-color: var(--dark-transparent);
+    margin: 1rem 0;
   }
 
   @keyframes move-background {
