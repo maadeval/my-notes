@@ -1,0 +1,80 @@
+---
+import CardArticle from './CardArticle.astro'
+
+const OBSERVABLE_ELEMENT_ID = 'header-element'
+---
+
+<CardArticle>
+  <div slot='header'>
+    <div
+      id={OBSERVABLE_ELEMENT_ID}
+      data-id-imperative='code-of-header'
+      data-name='ejemplo'
+    >
+      Dataset y como exportarlo como objeto
+    </div>
+    <code>
+      <pre
+        id='fill-information'>
+
+        <script>
+          const observableElement1 = document.getElementById(
+            'header-element'
+          ) as HTMLDivElement
+          const fillInformation = document.getElementById(
+            'fill-information'
+          ) as HTMLDivElement
+          
+          fillInformation.innerText = observableElement1.outerHTML
+          </script>
+          </pre>
+    </code>
+  </div>
+  <div slot='body'>
+    <p class='text-description'>
+      Para obtener los <code>data-set</code> de etiquetas HTML con JavaScript, podemos
+      destructurar el metodo <code>dataset</code> en un objeto con el nombre de aquellas
+      que queremos leer, escribiendolas en camelCase.
+    </p>
+    <p class='text-description'>
+      Obtenemos el elemento de arriba con: <code
+        >const obersavleElement = document.getElementById('header-element')</code
+      >
+    </p>
+    <p class='text-description'>
+      Luego llamamos a la propiedad dataset y destructuramos las propiedades que
+      queremos: <code
+        >const {'{imperativeId, name}'} = observableElement.dataset</code
+      >
+    </p>
+  </div>
+</CardArticle>
+
+<style>
+  .text-description {
+    font-size: var(--text-xs);
+    max-width: 48ch;
+    text-wrap: pretty;
+
+    & code {
+      color: hsla(0, 69%, 69%, 0.881);
+    }
+  }
+
+  #fill-information {
+    max-width: 48ch;
+    overflow: auto;
+    background-color: hsla(0, 0%, 0%, 0.1);
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+
+  #header-element {
+    background-color: hsla(0, 0%, 0%, 0.1);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-size: var(--text-xs);
+    color: hsla(0, 69%, 69%, 0.881);
+    text-wrap: pretty;
+  }
+</style>
