@@ -1,0 +1,14 @@
+---
+const posts = await Astro.glob('../articles-md/*.mdx')
+import { Code, Text } from '@/components/index.astro'
+---
+
+<>
+  {
+    posts.map(({ Content }) => (
+      <div>
+        <Content components={{ p: Text, code: Code }} />
+      </div>
+    ))
+  }
+</>

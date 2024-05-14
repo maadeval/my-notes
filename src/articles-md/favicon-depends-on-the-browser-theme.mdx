@@ -1,0 +1,29 @@
+---
+title: Cambiar el color del favicon SVG dependiendo del color schema del dispositivo
+---
+
+import { Card } from '../layouts/card/index.astro'
+import IconWithFavicon from '../components/IconWithFavicon.astro'
+
+<Card> 
+<Card.Header>
+<IconWithFavicon style='max-height: 60px;' />
+</Card.Header>
+
+<Card.Body>
+Podemos cambiar el color de un `favicon` dependiendo del `color-schema` de nuestro dispositivo.
+
+Para hacer esto necesitamos agregar dentro de nuestra etiqueta svg lo sigiuente:
+
+```html
+<svg>
+  <style>
+    path {
+      fill: light-dark(var(--dark-transparent), var(--white-transparent));
+    }
+  </style>
+</svg>
+```
+
+</Card.Body>
+</Card>

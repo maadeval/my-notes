@@ -1,0 +1,51 @@
+<article class='article'>
+  <slot />
+</article>
+
+<style>
+  .article {
+    border: 1px solid light-dark(var(--border-light), var(--border-dark));
+    border-radius: 0.5rem;
+    background-color: light-dark(var(--white), var(--dark));
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    animation: reveal 0.5s linear both;
+    animation-timeline: view();
+    animation-range: entry 20% entry 50%;
+    transform: scale(1);
+    opacity: 1;
+    outline: 1px solid light-dark(var(--border-light), var(--border-dark));
+    outline-offset: 4px;
+
+    &::before {
+      content: '';
+      z-index: -1;
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      border-radius: 0.5rem;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(
+        to right bottom,
+        light-dark(var(--border-light), var(--border-dark)) 0%,
+        transparent 50%
+      );
+    }
+  }
+
+  @keyframes reveal {
+    from {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+</style>

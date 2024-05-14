@@ -1,0 +1,10 @@
+---
+import CardBody from './card-body.astro'
+import CardLayout from './card-container.astro'
+import CardHeader from './card-header.astro'
+
+export const Card = Object.assign(CardLayout, {
+  Header: CardHeader,
+  Body: CardBody,
+})
+---
