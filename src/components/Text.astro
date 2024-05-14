@@ -1,0 +1,23 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+
+type Props = HTMLAttributes<'p'>
+
+const { ...args } = Astro.props
+---
+
+<p {...args} class:list={[args.class, 'text']}>
+  <slot />
+</p>
+
+<style>
+  .text {
+    font-size: var(--text-sm);
+    max-width: 48ch;
+    text-wrap: pretty;
+
+    & code {
+      color: hsla(0, 69%, 69%, 0.881);
+    }
+  }
+</style>
