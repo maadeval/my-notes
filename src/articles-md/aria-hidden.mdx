@@ -1,0 +1,29 @@
+---
+title: Como ocultar contenido a los lectores de pantalla con `aria-hidden`
+---
+
+import { Card } from '../layouts/card/index.astro'
+import SVGvsImgImage from '../components/svg-vs-img-image.astro'
+import { Code } from '../components/index.astro'
+
+<Card> 
+<Card.Header>
+
+<div>
+  # `aria-hidden` para ocultar contenido a los screen readers.
+
+```html
+<p>@madeval <span aria-hidden>|</span> 2024</p>
+```
+
+</div>
+
+</Card.Header>
+
+<Card.Body>
+El `aria-hidden` se usa cuando queremos queremos que algo se muestre en la pantalla pero que no sea importante para los screen-readers.
+
+El ejemplo que tenemos arriba se aplica porque queremos representar una separación visual entre el nombre y el año, pero no queremos que el screen-reader lea el caracter `|` (no es importante).
+
+</Card.Body>
+</Card>
