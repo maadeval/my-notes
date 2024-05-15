@@ -1,0 +1,53 @@
+---
+title: Usar scripts inline para sustituir contenido del DOM y borrar el script
+---
+
+import { Card } from '../layouts/card/index.astro'
+import TimeByScriptInline from '../components/time-by-script-inline.astro'
+
+<Card> 
+<Card.Header>
+
+<TimeByScriptInline />
+
+</Card.Header>
+
+<Card.Body>
+Como se ve arriba del todo, la fecha en rojo no esta colocada de manera estatica, sino que se ejecuta en tiempo de carga del HTML por medio de un script inline, que luego de ejecutarse y obtener la fecha que se muestra, se sustituye por el contenido.
+
+Asi lo que logramos es mostrar contenido dinamico en tiempo de carga y sin necesidad de mostrar el script en el DOM.
+
+El codigo para hacer esto se basa en una linea: `document.currentScript.parentElement.innerHTML = "Hello wordl!"`
+
+La propiedad `document.currentScript` nos da acceso al script que se esta ejecutando en ese momento, y con `parentElement` accedemos al elemento padre del script, que en este caso es el `span` que contiene el script.
+
+El codigo completo esta aqui:
+
+> Trabajamos con fechas usando un sitio genial para obtener el timestamp de una fecha futura: [https://www.epochconverter.com/](https://www.epochconverter.com/)
+
+```js
+const MEETING_TIMESTAMP = 1715886000
+const d = new Date(MEETING_TIMESTAMP)
+
+const date = d.toLocaleTimeString('es', {
+  hour: '2-digit',
+  minute: '2-digit',
+})
+
+// get current timezone
+const tzOffset = d.getTimezoneOffset() / 60
+const diff = tzOffset * -1
+
+const gmt =
+  diff === 0 ? 'GMT' : diff > 0 ? `GMT+${diff}` : `GMT-${Math.abs(diff)}`
+
+const selfScript = document.currentScript
+const parentElement = selfScript.parentElement
+
+parentElement.style.color = 'red'
+parentElement.style.fontWeight = 'bold'
+parentElement.innerHTML = `${date} ${gmt}`
+```
+
+</Card.Body>
+</Card>
