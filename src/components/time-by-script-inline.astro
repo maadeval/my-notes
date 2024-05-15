@@ -1,0 +1,28 @@
+<div>
+  <span>La fecha de la entrevista es a las: </span>
+  <span>
+    <script is:inline>
+      const MEETING_TIMESTAMP = 1715886000
+      const d = new Date(MEETING_TIMESTAMP)
+
+      const date = d.toLocaleTimeString('es-UY', {
+        hour: '2-digit',
+        minute: '2-digit',
+      })
+
+      // get current timezone
+      const tzOffset = d.getTimezoneOffset() / 60
+      const diff = tzOffset * -1
+
+      const gmt =
+        diff === 0 ? 'GMT' : diff > 0 ? `GMT+${diff}` : `GMT-${Math.abs(diff)}`
+
+      const selfScript = document.currentScript
+      const parentElement = selfScript.parentElement
+
+      parentElement.style.color = 'red'
+      parentElement.style.fontWeight = 'bold'
+      parentElement.innerHTML = `${date} ${gmt}`
+    </script>
+  </span>
+</div>
