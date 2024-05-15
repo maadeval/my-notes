@@ -1,0 +1,31 @@
+---
+title: Para qué sirve el noopener y noreferer en los enlaces HTML
+---
+
+import { Card } from '../layouts/card/index.astro'
+
+<Card> 
+<Card.Header>
+
+<div>
+# `Noopener` y `noreferer` en los enlaces HTML.
+
+```html
+<a href="#" target="_blank" rel="noopener noreferrer">Google</a>
+```
+
+</div>
+
+</Card.Header>
+
+<Card.Body>
+El valor `noopener` evita que el sitio destino tenga acceso al sitio origen, es decir, evita que el destino pueda modificar el contenido de la ventana de origen y asi poder hacer cosas maliciosas.
+
+El valor `noreferrer` evita que el sitio destino pueda saber de donde viene el usuario, esto es útil por si estamos en un sitio que tenga credenciales o informacion sensible en la `url`, si entramos a `Twitch` por ejemplo, ellos podrian saber la URL de donde vengo y asi tener informacion privada o que no quiera que se sepa.
+
+> Se suelen usar estos valores cuando el enlace es a un sitio externo, si es a un sitio interno no es necesario usarlos.
+
+Tambien podemos tener otro valor llamado `nofollow` que evita que los motores de busqueda sigan ese enlace, esto es util cuando no queremos que un enlace externo afecte el SEO de nuestro sitio.
+
+</Card.Body>
+</Card>

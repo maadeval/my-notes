@@ -5,7 +5,7 @@
       const MEETING_TIMESTAMP = 1715886000
       const d = new Date(MEETING_TIMESTAMP)
 
-      const date = d.toLocaleTimeString('es-UY', {
+      const date = d.toLocaleTimeString('es', {
         hour: '2-digit',
         minute: '2-digit',
       })
@@ -22,7 +22,7 @@
 
       parentElement.style.color = 'red'
       parentElement.style.fontWeight = 'bold'
-      parentElement.innerHTML = `${date} ${gmt}`
+      parentElement.innerHTML = `${date}H ${gmt}`
     </script>
   </span>
 </div>
