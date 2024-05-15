@@ -55,9 +55,6 @@ import CardArticle from '../components/CardArticle.astro'
       property: string
     }[]
   ) {
-    console.log({
-      properties,
-    })
     properties.forEach(({ element, property }) => {
       element.textContent = property
     })
