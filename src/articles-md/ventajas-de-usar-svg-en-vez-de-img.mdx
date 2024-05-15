@@ -1,0 +1,29 @@
+---
+title: Usar SVG como HTML y no como atriburo `src` de la imagen
+---
+
+import { Card } from '../layouts/card/index.astro'
+import SVGvsImgImage from '../components/svg-vs-img-image.astro'
+
+<Card> 
+<Card.Header>
+# Usar `SVG como HTML` y no como atriburo `src de <img />`
+
+</Card.Header>
+
+<Card.Body>
+Hay dos razones por las cuales es mejor usar `SVG` como `HTML` y no como atributo `src` de la imagen:
+
+**Estilo CSS**: Para cambiar facilmente el color del SVG podemos usar el valor `currentColor` en la propiedad `fill` del `SVG`. Asi cuando cambiamos el color del texto, el color del SVG tambien cambia.
+
+```html
+<svg class="text-red-600">
+  <path fill="currentColor" />
+  <path fill="currentColor" />
+</svg>
+```
+
+**Velocidad de carga**: Las etiquetas `<img />` son peticiones, cuando el navegador se descarga el HTML ve esta etiqueta y hace una peticion para descargar ese recurso. Esto demora un tiempo mas en descargarla y mostrarla. Cuando trabajamos con SVG, este ya viene con el HTML (recurso critico) por lo tanto vamos a verlo mucho mas rapido sin necesidad de hacer una llamada al servidor.
+
+</Card.Body>
+</Card>
