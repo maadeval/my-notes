@@ -1,0 +1,127 @@
+---
+import Button from "./Button.astro"
+---
+
+<div>
+  <div data-text-container class='container'>
+    <p data-text>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat sapiente
+      dolores sequi minus nisi pariatur natus corrupti laboriosam eius adipisci,
+      dolore delectus impedit. Nihil labore officia maiores modi, quo eligendi?
+    </p>
+  </div>
+    <label>
+      Cambiar padding-inline-start
+      <input data-inline-start type='range' min='0' step="1" max='20' value='0' />
+    </label>
+    <label>
+      Cambiar padding-inline-end
+      <input data-inline-final type='range' min='0' step="1" max='20' value='0' />
+    </label>
+    <label>
+      Cambiar padding-block-start
+      <input data-block-start type='range' min='0' step="1" max='20' value='0' />
+    </label>
+    <label>
+      Cambiar padding-block-end
+      <input data-block-final type='range' min='0' step="1" max='20' value='0' />
+    </label>
+    <menu>
+      <li>
+        <Button data-change-vertical>Cambiar a vertical</Button>
+      </li>
+      <li>
+        <Button data-change-horizontal>Cambiar a horizontal</Button>
+      </li>
+    </menu>
+</div>
+
+<style>
+  .container {
+    border: 1rem solid
+      light-dark(var(--dark-transparent), var(--white-transparent));
+      max-height: 40ch;
+      margin: auto;
+  }
+
+  p {
+    margin: 0;
+    border: 1px dashed
+      light-dark(var(--dark-transparent), var(--white-transparent));
+      padding-inline-start: 0px;
+      padding-inline-end: 0px;
+      padding-block-start: 0px;
+      padding-block-end: 0px;
+  }
+
+  label {
+    display: flex;
+    items-center;
+    justify-content: space-between;
+    padding-block: 1rem;
+  }
+
+  menu {
+    list-style: none;
+    margin-top: 1rem;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 1rem;
+  }
+</style>
+
+<script>
+  const inlineStartControl = document.querySelector('[data-inline-start]')
+  const inlineFinalControl = document.querySelector('[data-inline-final]')
+  
+  const blockStartControl = document.querySelector('[data-block-start]')
+  const blockFinalControl = document.querySelector('[data-block-final]')
+  
+  const textContainer = document.querySelector('[data-text-container]')
+
+  const verticalButton = document.querySelector('[data-change-vertical]')
+  const horizontalButton = document.querySelector('[data-change-horizontal]')
+
+  const isTextAParagraph = textContainer instanceof HTMLElement
+  if (!isTextAParagraph) {
+    throw new Error('The element with the data-text attribute must be a paragraph')
+  }
+
+  inlineStartControl?.addEventListener('input', ({ target }) => {
+    if (target instanceof HTMLInputElement) {
+      const newValueInPx = `${target.value}px`
+      textContainer.style.paddingInlineStart = newValueInPx
+    }
+  })
+
+  inlineFinalControl?.addEventListener('input', ({ target }) => {
+    if (target instanceof HTMLInputElement) {
+      const newValueInPx = `${target.value}px`
+      textContainer.style.paddingInlineEnd = newValueInPx
+    }
+  })
+
+  blockStartControl?.addEventListener('input', ({ target }) => {
+    if (target instanceof HTMLInputElement) {
+      const newValueInPx = `${target.value}px`
+      textContainer.style.paddingBlockStart = newValueInPx
+    }
+  })
+
+  blockFinalControl?.addEventListener('input', ({ target }) => {
+    if (target instanceof HTMLInputElement) {
+      const newValueInPx = `${target.value}px`
+      textContainer.style.paddingBlockEnd = newValueInPx
+    }
+  })
+
+  verticalButton?.addEventListener('click', () => {
+    textContainer.style.writingMode = 'vertical-lr'
+  })
+
+  horizontalButton?.addEventListener('click', () => {
+    textContainer.style.writingMode = 'horizontal-tb'
+  })
+</script>

@@ -1,0 +1,37 @@
+---
+title: Uso de padding-inline y padding-block en CSS
+---
+
+import { Card } from '../layouts/card/index.astro'
+import PaddingInlineAndBlock from '../components/PaddingInlineAndPaddingBlock.astro'
+
+<Card> 
+<Card.Header>
+
+<div>
+# `padding-inline` y `padding-block` en CSS.
+<PaddingInlineAndBlock />
+</div>
+</Card.Header>
+
+<Card.Body>
+El valor `padding-inline` como `padding-block` en CSS reciben dos valores:
+
+```css
+p {
+  padding-inline: 10px 20px;
+  padding-block: 5px 10px;
+}
+```
+
+Estas propiedades a diferencia del padding normal, se ajustan a la orientación del texto, por ejemplo, si estamos en un idioma en el que se escribe de manera horizontal, el padding inline (horizontal para nosotros) va a transformarse en un padding vertical.
+
+Esto es muy util para trabajar cuando se utilizan distintos idomas.
+
+En resumen:
+
+- `padding-inline` es el padding horizontal en un idioma horizontal.
+- `padding-block` es el padding vertical en un idioma horizontal.
+
+</Card.Body>
+</Card>
