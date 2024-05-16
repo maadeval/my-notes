@@ -1,0 +1,60 @@
+---
+title: Como hacer un count down con JavaScript
+---
+
+import { Card } from '../layouts/card/index.astro'
+import { Code } from '../components/index.astro'
+import CountDown from '../components/CountDown.astro'
+
+<Card> 
+<Card.Header>
+
+<div>
+  # Cómo hacer un `count down` con JavaScript.
+
+<CountDown />
+
+</div>
+
+</Card.Header>
+
+<Card.Body>
+Hacer un count down no parece ser tan dificil, aunque si atemorizar al comienzo.
+
+Para hacer esto con JavaScript puedes ver este codigo:
+
+```js
+const date = 1716231600000
+
+const SECOND = 1000
+const MINUTE = SECOND * 60
+const HOUR = MINUTE * 60
+const DAY = HOUR * 24
+
+const init = () => {
+  const formatDate = (date: number) => {
+    return Math.floor(date).toString().padStart(2, '0')
+  }
+
+  const updateCountDown = () => {
+    const now = Date.now()
+    const diff = date - now
+
+    const diffDays = formatDate(diff / DAY)
+    const diffHours = formatDate((diff % DAY) / HOUR)
+    const diffMinutes = formatDate((diff % HOUR) / MINUTE)
+    const diffSecons = formatDate((diff % MINUTE) / SECOND)
+
+    console.log(
+      `D:${diffDays}, H:${diffHours}, M:${diffMinutes}, S:${diffSecons} seconds`
+    )
+  }
+
+  setInterval(updateCountDown, SECOND)
+}
+
+init()
+```
+
+</Card.Body>
+</Card>
