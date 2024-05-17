@@ -1,0 +1,82 @@
+---
+title: Background noise en movimiento con CSS
+---
+
+import { Card } from '../layouts/card/index.astro'
+import BackgroundNoise from '../components/BackgroundNoise.astro'
+
+<Card> 
+<Card.Header>
+
+<div>
+  # `background-noise` en movimiento con CSS.
+
+<BackgroundNoise />
+
+</div>
+
+</Card.Header>
+
+<Card.Body>
+El efecto de `noise` se hizo buscando en este [sitio](https://www.noisetexturegenerator.com/), una imagen que sea de `noise` y dandole movimiento al background-position en CSS.
+
+El codigo esta qui:
+
+```css
+.container {
+  width: 200%;
+  height: 200%;
+  background: url(http://www.transparenttextures.com/patterns/broken-noise.png);
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  animation: noise 1s steps(10, end) infinite;
+}
+
+@keyframes noise {
+  0% {
+    background-position: 0 0;
+  }
+  10% {
+    background-position: -5% -5%;
+  }
+  20% {
+    background-position: -10% 5%;
+  }
+  30% {
+    background-position: 5% -10%;
+  }
+  40% {
+    background-position: -5% 15%;
+  }
+  50% {
+    background-position: 10% 5%;
+  }
+  60% {
+    background-position: 15% 10%;
+  }
+  70% {
+    background-position: -10% 15%;
+  }
+  80% {
+    background-position: 15% 10%;
+  }
+  90% {
+    background-position: -15% 5%;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+```
+
+> `mix-blend-mode: multiply;` es una propiedad que se usa para mezclar el color de fondo con el color del texto, en este caso el color del `noise` con el color del fondo, dando un efecto mas interesante.
+
+> Otro sitio para obtener `noise` es [https://www.transparenttextures.com/](https://www.transparenttextures.com/)
+
+</Card.Body>
+</Card>
